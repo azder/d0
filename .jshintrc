@@ -55,6 +55,7 @@
     "passfail": false,
     "white": false,
     "maxerr": 100,
-    "predef": ["define", "require"],
-    "indent": 4
+    "predef": ["define"],
+    "indent": 4,
+    "quotmark": "single"
 }

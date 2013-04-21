@@ -1,8 +1,6 @@
 {
-	"name": "@@name@@",
-	"version": "@@version@@",
-	"author": 'azder',
-	"dependencies": {
-		"jquery": "~1.9.1"
-	}
+  "name": "@@name@@",
+  "version": "@@version@@",
+  "author": "azder",
+  "dependencies": {}
 }

@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 
         files: {
             src: 'source/<%= pkg.name %>.js',
-            build: 'build/<%= pkg.name %>.min.js',
+            build: 'build/<%= pkg.name %>.js',
             dest: '<%= pkg.name %>.min.js',
             test: 'test/*.js',
             jshintrc: '.jshintrc'
@@ -39,16 +39,18 @@ module.exports = function(grunt) {
         jshint: {
 
             options: {
-                jshintrc: '<%= files.jshintrc %>'
-                //, immed: false // DONT require immediate invocations to be wrapped in parens e.g. `( function(){}() );`
+                jshintrc: '<%= files.jshintrc %>',
+                force: true
             },
 
-            all: ['Gruntfile.js', '<%= files.src %>']
+            beforeconcat: ['Gruntfile.js', '<%= files.src %>'],
+            afterconcat: ['<%= files.build %>']
+
 
         },
 
         concat: {
-            src: '<%= files.src %>',
+            src: '<%= files.build %>',
             dest: '<%= files.dest %>'
         },
         // ,
@@ -79,7 +81,7 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: ['<%= files.src %>', 'Gruntfile.js'],
-                tasks: ['jshint'],
+                tasks: ['jshint:beforeconcat'],
                 event: 'all',
                 options: {
                     // nospawn: true
@@ -88,12 +90,13 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-mocha');
 
-    grunt.registerTask('default', ['jshint', 'replace', 'uglify']);
+    grunt.registerTask('default', ['jshint', 'replace', 'concat', 'uglify']);
 
 };

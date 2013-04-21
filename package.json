@@ -1,16 +1,17 @@
 {
-    "name": "do",
-    "version": "0.1.0",
-    "author": "azder",
-    "license": "MIT",
-    "main": "do.min.js",
-    "devDependencies": {
-        "grunt": "~0.4.1",
-        "grunt-contrib-watch": "~0.3.1",
-        "grunt-contrib-uglify": "~0.2.0",
-        "grunt-contrib-jshint": "~0.4.3",
-        "grunt-mocha": "~0.3.1",
-        "grunt-replace": "~0.4.2"
-    },
-    "repository": ""
+  "name": "d0",
+  "version": "0.1.0",
+  "author": "azder",
+  "license": "MIT",
+  "main": "d0.min.js",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-jshint": "~0.4.3",
+    "grunt-mocha": "~0.3.1",
+    "grunt-replace": "~0.4.2",
+    "grunt-contrib-concat": "~0.2.0"
+  },
+  "repository": ""
 }
