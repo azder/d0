@@ -16,4 +16,4 @@ npm-debug.log
 .settings
 .project
 
-node_modulesbuild/*.js
+node_modules

@@ -15,25 +15,10 @@ module.exports = function(grunt) {
 
         files: {
             src: 'source/<%= pkg.name %>.js',
-            build: 'build/<%= pkg.name %>.js',
-            dest: '<%= pkg.name %>.min.js',
+            build: 'tmp/<%= pkg.name %>.js',
+            dist: '<%= pkg.name %>.min.js',
             test: 'test/*.js',
             jshintrc: '.jshintrc'
-        },
-
-        uglify: {
-
-            all: {
-
-                options: {
-                    banner: '/*!\n <%= pkg.name %> <%= today %> \n author: <%= pkg.author %> \n*/\n'
-                },
-                files: {
-                    '<%= files.dest %>': ['<%= files.build %>']
-                }
-
-            }
-
         },
 
         jshint: {
@@ -49,17 +34,6 @@ module.exports = function(grunt) {
 
         },
 
-        concat: {
-            src: '<%= files.build %>',
-            dest: '<%= files.dest %>'
-        },
-        // ,
-        // mocha: {
-        // tests: ['tests/index.html'],
-        // options: {
-        // reporter: 'min'
-        // }
-        // },
         replace: {
             dist: {
                 options: {
@@ -78,6 +52,28 @@ module.exports = function(grunt) {
                 }]
             }
         },
+
+        uglify: {
+
+            all: {
+
+                options: {
+                    banner: '/*!\n <%= pkg.name %> <%= today %> \n author: <%= pkg.author %> \n*/\n'
+                },
+
+                files: {
+                    '<%= files.dist %>': ['<%= files.build %>']
+                }
+
+            }
+
+        },
+
+        concat: {
+            '<%= files.dist %>': '<%= files.build %>'
+        },
+
+
         watch: {
             scripts: {
                 files: ['<%= files.src %>', 'Gruntfile.js'],
