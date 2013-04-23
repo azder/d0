@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Tests</title>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="mocha.css" />
+    </head>
+
+    <body>
+
+        <div id="mocha">
+            &nbsp;
+        </div>
+
+        <script src="mocha.js"></script>
+        <script src="chai.js"></script>
+        <script>
+            //mocha.ui('bdd');
+            //mocha.reporter('html');
+            expect = chai.expect;
+        </script>
+
+        <script src="test.js"></script>
+
+        <script>
+            if (window.mochaPhantomJS) {
+                mochaPhantomJS.run();
+            } else {
+                mocha.run();
+            }
+        </script>
+
+    </body>
+</html>
+
