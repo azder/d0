@@ -51,10 +51,10 @@
     "rhino": false,
     "wsh": false,
     "nomen": false,
-    "onevar": false,
+    "onevar": true,
     "passfail": false,
     "white": false,
-    "maxerr": 100,
+    "maxerr": 15,
     "predef": ["define"],
     "indent": 4,
     "quotmark": "single"

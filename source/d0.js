@@ -3,15 +3,23 @@
         //ALWAYS
         'use strict';
 
-        var name = '@@name', version = '@@version', define = G.define;
+        var name = '@@name', version = '@@version', define = G.define, module = G.module;
 
 
-        if ('function' === typeof define && define.amd) {
-            // AMD. Register as an anonymous module.
-            define(name, factory);
+        if ('object' === typeof module && 'object' === typeof module.exports) {
+
+            module.exports = factory(G);
+
         } else {
+
             // Browser global
-            factory(G);
+            G[name] = factory(G);
+
+            if ( typeof define === 'function' && define.amd) {
+                // AMD. Register as an anonymous module.
+                define(name, factory);
+            }
+
         }
 
 
@@ -21,6 +29,62 @@
         'use strict';
 
         /**@@docstub*/
+        var
+
+        //
+        forEach = Array.prototype.forEach,
+
+        //
+        hasOwn = Object.prototype.hasOwnProperty,
+
+        //
+        isNumber = function(value) {
+            return value === +value;
+        },
+
+        //
+        each = function(object, iterator, context) {
+
+            var length, index, key;
+
+            if (null === object || /*@f:off*/void 0/*@f:on*/ === object) {
+                return object;
+            }
+
+            if (null === iterator || /*@f:off*/void 0/*@f:on*/ === iterator) {
+                return object;
+            }
+
+            if (forEach && object.forEach === forEach) {
+                object.forEach(iterator, context);
+                return object;
+            }
+
+            length = object.length;
+
+            if (length !== +length) {
+                for (key in object) {
+                    if (null === iterator.call(context, object[key], key, object)) {
+                        return object;
+                    }
+                }
+                return object;
+            }
+
+            if (0 >= length) {
+                return object;
+            }
+
+            for ( index = 0; index < length; index += 1) {
+                if (null === iterator.call(context, object[index], index, object)) {
+                    return object;
+                }
+            }
+
+        }
+
+        // var
+        ;
 
 
     })

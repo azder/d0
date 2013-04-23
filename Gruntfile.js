@@ -18,6 +18,7 @@ module.exports = function(grunt) {
             build: 'tmp/<%= pkg.name %>.js',
             dist: '<%= pkg.name %>.min.js',
             test: 'test/*.js',
+            testpage: 'test/*.html',
             jshintrc: '.jshintrc'
         },
 
@@ -28,7 +29,7 @@ module.exports = function(grunt) {
                 force: true
             },
 
-            beforeconcat: ['Gruntfile.js', '<%= files.src %>'],
+            beforeconcat: ['Gruntfile.js', '<%= files.src %>',  '<%= files.test %>'],
             afterconcat: ['<%= files.build %>']
 
 
@@ -73,17 +74,21 @@ module.exports = function(grunt) {
             '<%= files.dist %>': '<%= files.build %>'
         },
 
+        mocha: {
+            all: ['<%= files.testpage %>']
+        },
 
         watch: {
             scripts: {
-                files: ['<%= files.src %>', 'Gruntfile.js'],
-                tasks: ['jshint:beforeconcat'],
+                files: ['<%= files.src %>', '<%= files.test %>', 'Gruntfile.js'],
+                tasks: ['jshint:beforeconcat', 'mocha'],
                 event: 'all',
                 options: {
                     // nospawn: true
                 }
             }
         }
+
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
