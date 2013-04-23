@@ -13,7 +13,8 @@
     "grunt-replace": "~0.4.2",
     "grunt-contrib-concat": "~0.2.0",
     "phantomjs": "~1.9.0-2",
-    "mocha-phantomjs": "~2.0.1"
+    "mocha-phantomjs": "~2.0.1",
+    "grunt-contrib-compress": "~0.4.10"
   },
   "repository": ""
 }

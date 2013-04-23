@@ -29,7 +29,7 @@ module.exports = function(grunt) {
                 force: true
             },
 
-            beforeconcat: ['Gruntfile.js', '<%= files.src %>',  '<%= files.test %>'],
+            beforeconcat: ['Gruntfile.js', '<%= files.src %>', '<%= files.test %>'],
             afterconcat: ['<%= files.build %>']
 
 
@@ -78,6 +78,20 @@ module.exports = function(grunt) {
             all: ['<%= files.testpage %>']
         },
 
+        compress: {
+            dist: {
+                options: {
+                    mode: 'tgz',
+                    archive: 'test.tar.gz'
+                },
+                expand: true,
+                cwd: 'test/',
+                src: ['**/*'],
+                dest: './'
+
+            }
+        },
+
         watch: {
             scripts: {
                 files: ['<%= files.src %>', '<%= files.test %>', 'Gruntfile.js'],
@@ -91,6 +105,7 @@ module.exports = function(grunt) {
 
     });
 
+    grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');

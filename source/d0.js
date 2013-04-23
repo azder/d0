@@ -28,7 +28,6 @@
         //ALWAYS
         'use strict';
 
-        /**@@docstub*/
         var
 
         //
@@ -37,12 +36,12 @@
         //
         hasOwn = Object.prototype.hasOwnProperty,
 
-        //
+        /**@@docstub*/
         isNumber = function(value) {
             return value === +value;
         },
 
-        //
+        /**@@docstub*/
         each = function(object, iterator, context) {
 
             var length, index, key;
@@ -81,11 +80,22 @@
                 }
             }
 
-        }
+        },
 
+        /**@@docstub*/
+        names = [],
+
+        /**@@docstub*/
+        behaviors = {};
         // var
         ;
 
+        /**@@docstub*/
+        function d0() {
+        }
+
+
+        return d0;
 
     })
 
