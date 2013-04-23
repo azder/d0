@@ -49,7 +49,6 @@
             if (null === object || /*@f:off*/void 0/*@f:on*/ === object) {
                 return object;
             }
-
             if (null === iterator || /*@f:off*/void 0/*@f:on*/ === iterator) {
                 return object;
             }
@@ -79,6 +78,8 @@
                     return object;
                 }
             }
+
+            return object;
 
         },
 
