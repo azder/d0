@@ -30,10 +30,12 @@
 
         var
 
+
+        /**@@docstub*/
         //
         forEach = Array.prototype.forEach,
 
-        //
+        /**@@docstub*/
         hasOwn = Object.prototype.hasOwnProperty,
 
         /**@@docstub*/
@@ -87,7 +89,7 @@
         names = [],
 
         /**@@docstub*/
-        behaviors = {};
+        behaviors = {}
         // var
         ;
 

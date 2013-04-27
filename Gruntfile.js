@@ -1,4 +1,3 @@
-/*global */
 /*jshint evil:true, node:true */
 
 module.exports = function(grunt) {
@@ -18,8 +17,28 @@ module.exports = function(grunt) {
             build: 'tmp/<%= pkg.name %>.js',
             dist: '<%= pkg.name %>.min.js',
             test: 'test/*.js',
-            testpage: 'test/*.html',
-            jshintrc: '.jshintrc'
+            testPage: 'test/*.html',
+            jshintrc: '.jshintrc',
+            mddocs: 'docs/*.md',
+            docs: {
+                mdhtml: 'tmp/docs/html/',
+                docco: 'tmp/docs/docco/',
+                dox: 'tmp/docs/dox/'
+            },
+            temps: ['<%=files.docs.docco%>', '<%=files.docs.dox%>', '<%=files.docs.mdhtml%>']
+        },
+
+        clean: {
+            init: '<%=files.temps%>'
+        },
+
+
+        mkdir: {
+            init: {
+                options: {
+                    create: '<%=files.temps%>'
+                }
+            }
         },
 
         jshint: {
@@ -75,7 +94,7 @@ module.exports = function(grunt) {
         },
 
         mocha: {
-            all: ['<%= files.testpage %>']
+            all: ['<%= files.testPage %>']
         },
 
         compress: {
@@ -92,27 +111,79 @@ module.exports = function(grunt) {
             }
         },
 
+        markdown: {
+            docs: {
+                files: ['<%= files.mddocs %>'],
+                dest: '<%= files.docs.mdhtml %>',
+                //template: 'myTemplate.jst',
+                options: {
+                    gfm: false,
+                    highlight: 'auto'
+                }
+            }
+        },
+
+        docco: {
+            docs: {
+                src: ['<%= files.build %>'],
+                options: {
+                    output: '<%= files.docs.docco %>'
+                }
+            }
+        },
+
+
+        dox: {
+
+            options: {
+                title: '<%= pkg.name %>'
+            },
+
+            files: {
+                src: ['<%= files.build %>'],
+                dest: '<%= files.docs.dox %>'
+            }
+        },
+
+
         watch: {
+
             scripts: {
                 files: ['<%= files.src %>', '<%= files.test %>', 'Gruntfile.js'],
-                tasks: ['jshint:beforeconcat', 'mocha'],
+                tasks: ['jshint:beforeconcat', 'mocha', 'docco', 'dox'],
                 event: 'all',
                 options: {
                     // nospawn: true
                 }
+            },
+
+            docs: {
+                files: ['<%= files.mddocs %>'],
+                tasks: ['markdown:docs'],
+                event: 'all'
             }
         }
 
     });
 
+    //
+    grunt.loadNpmTasks('grunt-mkdir');
+    grunt.loadNpmTasks('grunt-dox');
+    grunt.loadNpmTasks('grunt-docco');
+    grunt.loadNpmTasks('grunt-markdown');
+    grunt.loadNpmTasks('grunt-replace');
+    grunt.loadNpmTasks('grunt-mocha');
+    //
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-replace');
-    grunt.loadNpmTasks('grunt-mocha');
 
-    grunt.registerTask('default', ['jshint', 'replace', 'concat', 'uglify']);
+    //
+    grunt.registerTask('init', ['clean:init', 'mkdir:init']);
+    grunt.registerTask('docs', ['docco', 'dox', 'markdown:docs']);
+    grunt.registerTask('default', ['init', 'jshint:beforeconcat', 'replace', 'docs', 'concat', 'jshint:afterconcat', 'uglify']);
 
 };
